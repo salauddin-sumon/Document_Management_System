@@ -1,0 +1,27 @@
+# Render "Blueprint": tells Render how to build and run this app.
+# Render → New → Blueprint → pick this repository. It asks for the values marked sync: false.
+services:
+  - type: web
+    name: document-management-system
+    runtime: node
+    plan: free
+    buildCommand: npm run render-build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true # Render creates a long random secret
+      - key: MONGO_URI # MongoDB Atlas connection string (same as server/.env)
+        sync: false
+      - key: B2_ENDPOINT # Backblaze B2 settings (same as server/.env)
+        sync: false
+      - key: B2_BUCKET
+        sync: false
+      - key: B2_KEY_ID
+        sync: false
+      - key: B2_APP_KEY
+        sync: false

@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* Design tokens: green, white and red theme.
+   Use them as Tailwind classes: bg-page, bg-surface, border-line, text-fg, text-muted, bg-accent, text-danger… */
+@theme {
+  --font-sans: "Hind Siliguri", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-page: #f3f7f5; /* very light green-grey page background */
+  --color-surface: #ffffff; /* cards, tables, inputs */
+  --color-surface-2: #eaf3ee; /* hover rows, subtle fills */
+  --color-line: #d5e2db;
+  --color-fg: #10291d;
+  --color-muted: #557064;
+  --color-faint: #8aa197;
+
+  --color-accent: #006a4e; /* main green */
+  --color-accent-hover: #00563f;
+  --color-on-accent: #ffffff;
+
+  --color-ok: #00704a;
+  --color-ok-bg: #dcf2e6;
+  --color-warn: #8a5a00;
+  --color-warn-bg: #fff1cf;
+  --color-danger: #c8102e; /* main red */
+  --color-danger-bg: #fde4e7;
+  --color-info: #006a4e;
+  --color-info-bg: #e0f0e8;
+}
+
+html {
+  color-scheme: light;
+  /* Base text size. Every Tailwind size is relative to this, so raising it enlarges the whole app. */
+  font-size: 18px;
+}
+body {
+  @apply bg-page font-sans text-fg antialiased;
+}
+
+/* Reusable classes. Defined with @utility so they can be combined with other Tailwind classes. */
+@utility input {
+  @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-base text-fg outline-none placeholder:text-faint focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-60 file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-surface-2 file:px-3 file:py-1 file:font-semibold file:text-accent;
+}
+
+/* Text boxes and dropdowns line up at the same height */
+input.input:not([type="file"]),
+select.input {
+  height: 2.75rem;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-semibold text-fg;
+}
+@utility btn {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-bold whitespace-nowrap transition disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-on-accent shadow-sm hover:bg-accent-hover;
+}
+@utility btn-secondary {
+  @apply btn border border-accent/40 bg-surface text-accent hover:bg-surface-2;
+}
+@utility btn-danger {
+  @apply btn bg-danger text-white hover:bg-danger/90;
+}
+@utility card {
+  @apply rounded-xl border border-line bg-surface p-5 shadow-sm;
+}
+/* Table header cell / body cell */
+@utility th {
+  @apply bg-surface-2 px-4 py-3 text-left text-xs font-bold tracking-wider text-accent uppercase;
+}
+@utility td {
+  @apply px-4 py-3 align-top;
+}
+@utility link {
+  @apply cursor-pointer font-semibold text-accent hover:underline;
+}
