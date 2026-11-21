@@ -102,3 +102,4 @@ Code: `server/utils/storage.js` (B2 or disk) and `server/utils/files.js` (save, 
 | GET | `/api/dealers/:id/notices` · `/api/dealers/:id/documents` · `/api/documents/:id/download` | all |
 | POST, PUT, DELETE | notices and documents | admin |
 | GET | `/api/dashboard/stats` | all |
+"# Document_Management_System" 

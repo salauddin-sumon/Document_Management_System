@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner.jsx'
 import Badge from '../components/Badge.jsx'
 import Modal from '../components/Modal.jsx'
 import { formatDate, ROLE_LABELS } from '../utils/format.js'
+import PasswordInput from '../components/PasswordInput.jsx'
 
 const EMPTY = { role: 'staff', staffId: '', email: '', name: '', designation: '', password: '' }
 
@@ -189,9 +190,7 @@ export default function Users() {
               <label className="label">
                 {editing ? 'New password (leave blank to keep current)' : 'Password * (min 6 characters)'}
               </label>
-              <input
-                type="text"
-                className="input"
+              <PasswordInput
                 value={form.password}
                 onChange={set('password')}
                 minLength={6}

@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import api, { errorMessage } from '../api/client.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import { ROLE_LABELS } from '../utils/format.js'
+import PasswordInput from '../components/PasswordInput.jsx'
 
 export default function Account() {
   const { user } = useAuth()
@@ -51,15 +52,15 @@ export default function Account() {
         <h2 className="text-lg font-bold text-fg">Change password <span className="font-normal text-muted">পাসওয়ার্ড পরিবর্তন</span></h2>
         <div>
           <label className="label">Current password</label>
-          <input type="password" className="input" value={form.currentPassword} onChange={set('currentPassword')} required />
+          <PasswordInput value={form.currentPassword} onChange={set('currentPassword')} required autoComplete="current-password" />
         </div>
         <div>
           <label className="label">New password</label>
-          <input type="password" className="input" value={form.newPassword} onChange={set('newPassword')} minLength={6} required />
+          <PasswordInput value={form.newPassword} onChange={set('newPassword')} minLength={6} required autoComplete="new-password" />
         </div>
         <div>
           <label className="label">Confirm new password</label>
-          <input type="password" className="input" value={form.confirm} onChange={set('confirm')} minLength={6} required />
+          <PasswordInput value={form.confirm} onChange={set('confirm')} minLength={6} required autoComplete="new-password" />
         </div>
         <button type="submit" className="btn-primary w-full" disabled={saving}>
           {saving ? 'Saving…' : 'Update password'}

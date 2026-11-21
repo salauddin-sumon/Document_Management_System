@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { useAuth } from '../context/AuthContext.jsx'
 import { errorMessage } from '../api/client.js'
 import Spinner from '../components/Spinner.jsx'
+import PasswordInput from '../components/PasswordInput.jsx'
 
 export default function Login() {
   const { user, loading, login } = useAuth()
@@ -53,10 +54,8 @@ export default function Login() {
         </div>
         <div>
           <label className="label" htmlFor="password">Password <span className="font-normal text-muted">পাসওয়ার্ড</span></label>
-          <input
+          <PasswordInput
             id="password"
-            type="password"
-            className="input"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
