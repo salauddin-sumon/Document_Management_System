@@ -50,7 +50,7 @@ export default function Login() {
             autoFocus
             autoComplete="username"
           />
-          <p className="mt-1 text-xs text-faint">Admins sign in with their email address.</p>
+          <p className="mt-1 text-xs text-faint">Sign in with your staff ID</p>
         </div>
         <div>
           <label className="label" htmlFor="password">Password <span className="font-normal text-muted">পাসওয়ার্ড</span></label>
