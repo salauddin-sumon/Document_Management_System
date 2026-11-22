@@ -36,11 +36,16 @@ const ownerRules = [
 const createRules = [
   ...ownerRules,
   required('dealerCode', 'Dealer code'),
+  required('shopName', 'Shop name'),
+  required('proprietorName', 'P_N (Proprietor name)'),
   required('bu', 'BU'),
   required('salesGroup', 'Sales group'),
+  required('distGroup', 'Dist group'),
   required('zone', 'Zone'),
+  required('baseId', 'Base ID'),
   required('baseName', 'Base name'),
-  body('codeOpenDate').isISO8601().withMessage('Valid code open date is required'),
+  required('address', 'Address'),
+  body('codeOpenDate').isISO8601().withMessage('Valid OP date is required'),
 ];
 
 // Edit dealer: owner details, status and the list of existing codes
@@ -50,11 +55,16 @@ const updateRules = [
   body('codes').isArray({ min: 1 }).withMessage('At least one dealer code is required'),
   // "codes.*" checks every item in the codes array
   required('codes.*.dealerCode', 'Dealer code'),
+  required('codes.*.shopName', 'Shop name'),
+  required('codes.*.proprietorName', 'P_N (Proprietor name)'),
   required('codes.*.bu', 'BU'),
   required('codes.*.salesGroup', 'Sales group'),
+  required('codes.*.distGroup', 'Dist group'),
   required('codes.*.zone', 'Zone'),
+  required('codes.*.baseId', 'Base ID'),
   required('codes.*.baseName', 'Base name'),
-  body('codes.*.codeOpenDate').isISO8601().withMessage('Valid code open date is required'),
+  required('codes.*.address', 'Address'),
+  body('codes.*.codeOpenDate').isISO8601().withMessage('Valid OP date is required'),
 ];
 
 const noticeRules = [

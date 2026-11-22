@@ -2,7 +2,7 @@
 export const formatDate = (d) =>
   d ? new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' }) : '—'
 
-// For calendar dates picked in a form (issue date, code open date, expiry).
+// For calendar dates picked in a form (issue date, OP date, expiry).
 // They are stored as midnight UTC, so display them in UTC to avoid off-by-one days.
 export const formatDay = (d) =>
   d

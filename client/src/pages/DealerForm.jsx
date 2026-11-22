@@ -19,18 +19,23 @@ const OWNER_FIELDS = [
 // Stored per dealer code (one per BU)
 const CODE_FIELDS = [
   { name: 'dealerCode', label: 'Dealer code', bn: 'ডিলার কোড', mono: true },
+  { name: 'shopName', label: 'Shop name', bn: 'দোকানের নাম' },
+  { name: 'proprietorName', label: 'P_N (Proprietor name)', bn: 'প্রোপ্রাইটরের নাম' },
   { name: 'bu', label: 'BU', bn: 'বিজনেস ইউনিট', list: 'bus' },
   { name: 'salesGroup', label: 'Sales group', bn: 'সেলস গ্রুপ', list: 'salesGroups' },
+  { name: 'distGroup', label: 'Dist group', bn: 'ডিস্ট গ্রুপ', list: 'distGroups' },
   { name: 'zone', label: 'Zone', bn: 'জোন', list: 'zones' },
+  { name: 'baseId', label: 'Base ID', bn: 'বেস আইডি', mono: true },
   { name: 'baseName', label: 'Base name', bn: 'বেস', list: 'baseNames' },
-  { name: 'codeOpenDate', label: 'Code open date', bn: 'কোড খোলার তারিখ', type: 'date' },
+  { name: 'codeOpenDate', label: 'OP date', bn: 'ওপি তারিখ', type: 'date' },
+  { name: 'address', label: 'Address', bn: 'ঠিকানা', wide: true },
 ]
 
 const emptyOf = (fields) => Object.fromEntries(fields.map((f) => [f.name, '']))
 
 function TextField({ field, value, onChange, disabled }) {
   return (
-    <div>
+    <div className={field.wide ? 'sm:col-span-2 lg:col-span-3' : ''}>
       <label className="label" htmlFor={field.name}>{field.label} * <Bn>{field.bn}</Bn></label>
       <input
         id={field.name}
@@ -64,7 +69,7 @@ export default function DealerForm() {
   const [asking, setAsking] = useState(false) // the "keep dealer ID or create new?" question is open
   const [loading, setLoading] = useState(isEdit || params.has('dealer'))
   const [saving, setSaving] = useState(false)
-  const [meta, setMeta] = useState({ zones: [], bus: [], salesGroups: [], baseNames: [] })
+  const [meta, setMeta] = useState({ zones: [], bus: [], salesGroups: [], baseNames: [], distGroups: [] })
 
   useEffect(() => {
     // Existing values are suggested while typing
@@ -244,6 +249,7 @@ export default function DealerForm() {
         <datalist id="bus">{meta.bus.map((v) => <option key={v} value={v} />)}</datalist>
         <datalist id="salesGroups">{meta.salesGroups.map((v) => <option key={v} value={v} />)}</datalist>
         <datalist id="zones">{meta.zones.map((v) => <option key={v} value={v} />)}</datalist>
+        <datalist id="distGroups">{meta.distGroups.map((v) => <option key={v} value={v} />)}</datalist>
         <datalist id="baseNames">{meta.baseNames.map((v) => <option key={v} value={v} />)}</datalist>
 
         <div className="flex justify-end gap-2">

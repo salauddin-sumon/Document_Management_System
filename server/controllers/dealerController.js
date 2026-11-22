@@ -6,7 +6,10 @@ import AppError from '../utils/AppError.js';
 import { removeFile, escapeRegex } from '../utils/files.js';
 
 const OWNER_FIELDS = ['ownerName', 'mobile', 'nidNumber', 'tradeLicense'];
-const CODE_FIELDS = ['dealerCode', 'bu', 'salesGroup', 'zone', 'baseName', 'codeOpenDate'];
+const CODE_FIELDS = [
+  'dealerCode', 'shopName', 'proprietorName', 'bu', 'salesGroup', 'distGroup',
+  'zone', 'baseId', 'baseName', 'address', 'codeOpenDate',
+];
 const pickFrom = (obj, fields) =>
   Object.fromEntries(fields.filter((f) => obj[f] !== undefined).map((f) => [f, obj[f]]));
 
@@ -34,6 +37,10 @@ export const getDealers = async (req, res) => {
         'codes.dealerCode',
         'codes.bu',
         'codes.salesGroup',
+        'codes.distGroup',
+        'codes.shopName',
+        'codes.proprietorName',
+        'codes.baseId',
         'codes.baseName',
         'ownerName',
         'mobile',
@@ -61,14 +68,15 @@ export const getDealers = async (req, res) => {
 
 // GET /api/dealers/meta — dropdown/suggestion values
 export const getMeta = async (req, res) => {
-  const [zones, bus, salesGroups, baseNames] = await Promise.all(
-    ['codes.zone', 'codes.bu', 'codes.salesGroup', 'codes.baseName'].map((f) => Dealer.distinct(f))
+  const [zones, bus, salesGroups, baseNames, distGroups] = await Promise.all(
+    ['codes.zone', 'codes.bu', 'codes.salesGroup', 'codes.baseName', 'codes.distGroup'].map((f) => Dealer.distinct(f))
   );
   res.json({
     zones: zones.sort(),
     bus: bus.sort(),
     salesGroups: salesGroups.sort(),
     baseNames: baseNames.sort(),
+    distGroups: distGroups.sort(),
   });
 };
 
@@ -148,7 +156,8 @@ export const createDealer = async (req, res) => {
     existing.ownerName = owner.ownerName;
     existing.mobile = owner.mobile;
     existing.codes.push(code);
-    await existing.save();
+    // Only check what changed, so older codes saved before newer required fields still work
+    await existing.save({ validateModifiedOnly: true });
     return res.status(200).json({ ...existing.toObject(), addedToExisting: true });
   }
 

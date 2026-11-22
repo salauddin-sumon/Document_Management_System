@@ -4,14 +4,20 @@ import { nextSequence } from './Counter.js';
 const req = (label) => [true, `${label} is required`];
 
 // A dealer (one person) can work with several of the company's BUs and gets a
-// separate dealer code for each. Each code has its own BU, sales group, zone and base.
+// separate dealer code for each. Each code has its own shop, BU, groups, zone and base.
+// Codes/IDs are stored as text (they can have leading zeros or letters).
 const dealerCodeSchema = new mongoose.Schema({
   dealerCode: { type: String, required: req('Dealer code'), uppercase: true, trim: true },
+  shopName: { type: String, required: req('Shop name'), trim: true },
+  proprietorName: { type: String, required: req('P_N (Proprietor name)'), trim: true }, // "P_N"
   bu: { type: String, required: req('BU'), trim: true },
   salesGroup: { type: String, required: req('Sales group'), trim: true },
+  distGroup: { type: String, required: req('Dist group'), trim: true },
   zone: { type: String, required: req('Zone'), trim: true },
+  baseId: { type: String, required: req('Base ID'), trim: true },
   baseName: { type: String, required: req('Base name'), trim: true },
-  codeOpenDate: { type: Date, required: req('Code open date') },
+  address: { type: String, required: req('Address'), trim: true },
+  codeOpenDate: { type: Date, required: req('OP date') }, // shown as "OP date"
 });
 
 export const DEALER_STATUSES = ['active', 'suspended', 'closed'];
