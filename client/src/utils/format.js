@@ -30,7 +30,7 @@ export const formatSize = (bytes = 0) => {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-export const ROLE_LABELS = { admin: 'Admin', zm_hos: 'ZM/HOS', staff: 'Staff' }
+export const ROLE_LABELS = { admin: 'Admin', zm_hos: 'ZM/HOS', back_office: 'Back Office', staff: 'Staff' }
 
 // Best short name for a user: name, else staff ID, else email
 export const displayName = (u) => u?.name || u?.staffId || u?.email || 'Unknown'

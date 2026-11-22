@@ -6,16 +6,17 @@ Built with the **MERN** stack (MongoDB, Express, React, Node) using an **MVC** s
 
 ## Features
 
-- **Login:** admins sign in with email and password. ZM/HOS and staff sign in with their **staff ID** and password. Sessions use a JWT in an httpOnly cookie. There is no public signup.
+- **Login:** admins sign in with email and password. ZM/HOS, Back Office and staff sign in with their **staff ID** and password. Sessions use a JWT in an httpOnly cookie. There is no public signup.
 - **Roles:**
 
-  | | Admin | ZM/HOS | Staff |
-  |---|---|---|---|
-  | View dealers, letters, notices, documents | ✓ | ✓ | ✓ |
-  | Issue letters ("Issue a letter") | ✓ | ✓ | |
-  | Edit/delete issue letters | ✓ | | |
-  | Add/edit/delete dealers, notices, documents | ✓ | | |
-  | Manage users | ✓ | | |
+  | | Admin | Back Office | ZM/HOS | Staff |
+  |---|---|---|---|---|
+  | View dealers, letters, notices, documents | ✓ | ✓ | ✓ | ✓ |
+  | Issue letters ("Issue letter") | ✓ | ✓ | ✓ | |
+  | Add dealers / new dealer codes | ✓ | ✓ | | |
+  | Edit/delete dealers and issue letters | ✓ | | | |
+  | Add/delete notices, documents | ✓ | | | |
+  | Manage users | ✓ | | | |
 
 - **Dealers:** each dealer (person) gets an automatic unique **Dealer ID** (DLR-0001…) and has owner name, mobile, NID number, trade license and status. **Add dealer** takes one dealer code at a time (code, BU, sales group, zone, base name, code open date). If the NID number **or** trade license already belongs to a dealer, the form asks whether to keep that Dealer ID (add the code under it) or create a new one. When both match it can only be added under the existing ID. With no match, a new dealer is created. Searching an exact Dealer ID shows the full profile with every code.
 - **Letters:** issue date, reference no (unique), dealer code, BU (taken from the dealer code), issuer name, issuer staff ID, designation, note and an optional attachment.
@@ -94,10 +95,11 @@ Code: `server/utils/storage.js` (B2 or disk) and `server/utils/files.js` (save, 
 | GET | `/api/auth/me` · PUT `/api/auth/password` | logged in |
 | GET, POST | `/api/users` · PUT, DELETE `/api/users/:id` | admin |
 | GET | `/api/dealers` (`?search=&zone=&bu=&status=&page=`) · `/api/dealers/:id` | all |
-| GET | `/api/dealers/meta` (zones, BUs, sales groups, base names) · `/api/dealers/lookup` (admin) · `/api/dealers/codes` (all codes) | all |
-| POST | `/api/dealers` (with `codes: [{ dealerCode, business, businessName, codeOpenDate }]`) · PUT, DELETE `/api/dealers/:id` | admin |
-| GET | `/api/issue-letters` (`?search=&letterType=&dealer=&page=`) · `/types` · `/:id` · `/:id/attachment` | all |
-| POST (multipart, optional `attachment`) | `/api/issue-letters` | admin, ZM/HOS |
+| GET | `/api/dealers/meta` (zones, BUs, sales groups, base names) · `/api/dealers/lookup` (admin, Back Office) · `/api/dealers/codes` (all codes) | all |
+| POST | `/api/dealers` (owner fields + one code: dealerCode, bu, salesGroup, zone, baseName, codeOpenDate) | admin, Back Office |
+| PUT, DELETE | `/api/dealers/:id` | admin |
+| GET | `/api/issue-letters` (`?search=&bu=&from=&to=&dealer=&page=`) · `/filters` · `/:id` · `/:id/attachment` | all |
+| POST (multipart, optional `attachment`) | `/api/issue-letters` | admin, Back Office, ZM/HOS |
 | PUT, DELETE | `/api/issue-letters/:id` | admin |
 | GET | `/api/dealers/:id/notices` · `/api/dealers/:id/documents` · `/api/documents/:id/download` | all |
 | POST, PUT, DELETE | notices and documents | admin |

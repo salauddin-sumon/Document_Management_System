@@ -29,10 +29,12 @@ export function AuthProvider({ children }) {
 
   // Permission helpers used to show/hide buttons. The server enforces the same rules.
   const isAdmin = user?.role === 'admin'
-  const canIssueLetters = isAdmin || user?.role === 'zm_hos'
+  const isBackOffice = user?.role === 'back_office'
+  const canIssueLetters = isAdmin || isBackOffice || user?.role === 'zm_hos'
+  const canAddDealers = isAdmin || isBackOffice
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, isAdmin, canIssueLetters }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, isAdmin, canIssueLetters, canAddDealers }}>
       {children}
     </AuthContext.Provider>
   )

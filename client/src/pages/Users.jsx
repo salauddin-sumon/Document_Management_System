@@ -12,7 +12,8 @@ const EMPTY = { role: 'staff', staffId: '', email: '', name: '', designation: ''
 
 const ROLE_HELP = {
   admin: 'Full access. Logs in with email.',
-  zm_hos: 'Can view everything and add issue letters. Logs in with staff ID.',
+  zm_hos: 'Can view everything and issue letters. Logs in with staff ID.',
+  back_office: 'Can view everything, add dealers (and new dealer codes) and issue letters. Logs in with staff ID.',
   staff: 'View only. Logs in with staff ID.',
 }
 
@@ -97,8 +98,8 @@ export default function Users() {
   const roleOptions = editing
     ? editing.role === 'admin'
       ? ['admin']
-      : ['zm_hos', 'staff']
-    : ['staff', 'zm_hos', 'admin']
+      : ['back_office', 'zm_hos', 'staff']
+    : ['staff', 'zm_hos', 'back_office', 'admin']
 
   return (
     <div className="space-y-4">

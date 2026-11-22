@@ -24,9 +24,12 @@ export default function App() {
           <Route path="/dealers/:id" element={<DealerDetail />} />
           <Route path="/issue-letters" element={<IssueLetters />} />
           <Route path="/account" element={<Account />} />
-          {/* Admin-only pages */}
-          <Route element={<ProtectedRoute adminOnly />}>
+          {/* Admin and Back Office: add dealers / new dealer codes */}
+          <Route element={<ProtectedRoute roles={['admin', 'back_office']} />}>
             <Route path="/dealers/new" element={<DealerForm />} />
+          </Route>
+          {/* Admin-only pages */}
+          <Route element={<ProtectedRoute roles={['admin']} />}>
             <Route path="/dealers/:id/edit" element={<DealerForm />} />
             <Route path="/users" element={<Users />} />
           </Route>

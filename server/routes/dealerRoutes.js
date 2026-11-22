@@ -12,7 +12,10 @@ import {
 } from '../controllers/dealerController.js';
 import { getNotices, createNotice } from '../controllers/noticeController.js';
 import { getDocuments, uploadDocument } from '../controllers/documentController.js';
-import { protect, requireAdmin } from '../middleware/auth.js';
+import { protect, authorize, requireAdmin } from '../middleware/auth.js';
+
+// Admin and Back Office can add dealers (and new codes under an existing Dealer ID)
+const canAddDealers = authorize('admin', 'back_office');
 import { DEALER_STATUSES } from '../models/Dealer.js';
 import validate from '../middleware/validate.js';
 import upload from '../middleware/upload.js';
@@ -62,8 +65,8 @@ const noticeRules = [
 
 router.get('/meta', getMeta);
 router.get('/codes', getCodeOptions);
-router.get('/lookup', requireAdmin, lookupDealer);
-router.route('/').get(getDealers).post(requireAdmin, createRules, validate, createDealer);
+router.get('/lookup', canAddDealers, lookupDealer);
+router.route('/').get(getDealers).post(canAddDealers, createRules, validate, createDealer);
 router
   .route('/:id')
   .get(getDealer)

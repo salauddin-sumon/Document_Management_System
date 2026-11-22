@@ -9,7 +9,7 @@ export const getUsers = async (req, res) => {
 };
 
 // POST /api/users  (admin)
-// Admin accounts need an email; ZM/HOS and staff accounts need a staff ID.
+// Admin accounts need an email; ZM/HOS, Back Office and staff accounts need a staff ID.
 export const createUser = async (req, res) => {
   const { name, email, staffId, designation, password, role } = req.body;
   const data = { name, designation, password, role };

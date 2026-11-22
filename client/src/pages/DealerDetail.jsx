@@ -29,7 +29,7 @@ function Field({ label, value }) {
 export default function DealerDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { isAdmin } = useAuth()
+  const { isAdmin, canAddDealers } = useAuth()
   const [dealer, setDealer] = useState(null)
   const [tab, setTab] = useState(TABS[0].key)
 
@@ -74,12 +74,16 @@ export default function DealerDetail() {
             {dealer.letterCount} letter{dealer.letterCount !== 1 && 's'}
           </p>
         </div>
-        {isAdmin && (
+        {canAddDealers && (
           <div className="flex flex-wrap gap-2">
             {/* Opens Add dealer with this owner's details filled in; same NID + TL → code is added here */}
             <Link to={`/dealers/new?dealer=${id}`} className="btn-primary">Add new code</Link>
-            <Link to={`/dealers/${id}/edit`} className="btn-secondary">Edit</Link>
-            <button onClick={handleDelete} className="btn-danger">Delete</button>
+            {isAdmin && (
+              <>
+                <Link to={`/dealers/${id}/edit`} className="btn-secondary">Edit</Link>
+                <button onClick={handleDelete} className="btn-danger">Delete</button>
+              </>
+            )}
           </div>
         )}
       </div>

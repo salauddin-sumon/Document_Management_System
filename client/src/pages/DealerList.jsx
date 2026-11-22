@@ -34,7 +34,7 @@ function DealerProfile({ dealer }) {
 
 export default function DealerList() {
   const navigate = useNavigate()
-  const { isAdmin } = useAuth()
+  const { canAddDealers } = useAuth()
   // Filters live in the URL so they survive refresh and the back button
   const [params, setParams] = useSearchParams()
   const search = params.get('search') || ''
@@ -79,7 +79,7 @@ export default function DealerList() {
   return (
     <div className="space-y-5">
       <PageHeader title="Dealers" bn="ডিলার তালিকা">
-        {isAdmin && <Link to="/dealers/new" className="btn-primary">Add dealer</Link>}
+        {canAddDealers && <Link to="/dealers/new" className="btn-primary">Add dealer</Link>}
       </PageHeader>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
@@ -141,7 +141,7 @@ export default function DealerList() {
                       {data.totalAll === 0 ? (
                         <EmptyState
                           title="No dealers yet"
-                          hint={isAdmin ? 'Use "Add dealer" to add the first one.' : 'An admin needs to add dealers.'}
+                          hint={canAddDealers ? 'Use "Add dealer" to add the first one.' : 'An admin or Back Office user needs to add dealers.'}
                         />
                       ) : (
                         <EmptyState title="No dealers match" hint="Clear the search or change the filters." />

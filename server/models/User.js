@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-export const ROLES = ['admin', 'zm_hos', 'staff'];
+export const ROLES = ['admin', 'zm_hos', 'back_office', 'staff'];
 
 // Admins log in with email; ZM/HOS and staff log in with their staff ID.
 const userSchema = new mongoose.Schema(

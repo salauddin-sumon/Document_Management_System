@@ -33,7 +33,7 @@ const letterRules = [
 router
   .route('/')
   .get(getLetters)
-  .post(authorize('admin', 'zm_hos'), upload.single('attachment'), letterRules, validate, createLetter);
+  .post(authorize('admin', 'zm_hos', 'back_office'), upload.single('attachment'), letterRules, validate, createLetter);
 router.get('/filters', getLetterFilters);
 router
   .route('/:id')

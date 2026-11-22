@@ -36,7 +36,7 @@ function Panel({ title, bn, right, children }) {
 }
 
 export default function Dashboard() {
-  const { isAdmin, canIssueLetters } = useAuth()
+  const { canAddDealers, canIssueLetters } = useAuth()
   const [stats, setStats] = useState(null)
   const [issuing, setIssuing] = useState(false)
   const [reload, setReload] = useState(0)
@@ -58,7 +58,7 @@ export default function Dashboard() {
         {canIssueLetters && (
           <button onClick={() => setIssuing(true)} className="btn-secondary">Issue letter</button>
         )}
-        {isAdmin && <Link to="/dealers/new" className="btn-primary">Add dealer</Link>}
+        {canAddDealers && <Link to="/dealers/new" className="btn-primary">Add dealer</Link>}
       </PageHeader>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">

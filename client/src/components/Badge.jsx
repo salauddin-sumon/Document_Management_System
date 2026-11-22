@@ -6,6 +6,7 @@ const TONE = {
   high: 'danger',
   admin: 'info',
   zm_hos: 'ok',
+  back_office: 'warn',
   staff: 'neutral',
 }
 
